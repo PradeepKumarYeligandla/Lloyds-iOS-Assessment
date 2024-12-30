@@ -1,7 +1,7 @@
 # Lloyds-iOS-Assessment
 # ProductCatalog App
 
-This iOS app displays a list of products fetched from a network API. The app handles multiple states such as loading, success, error, and idle, and it includes several views to display product details, price, and ratings. The app also includes features like lazy loading of products and image caching.
+The ProductCatalog app is a modern iOS application built using **SwiftUI**, designed to display a list of products fetched from a network API. The app handles multiple states such as loading, success, error, and idle, and it includes several views to display product details, price, and ratings. The app also includes features like lazy loading of products and image caching.
 
 ## Features
 
@@ -27,8 +27,9 @@ The app is structured using the following components:
 
 ## Requirements
 
-- iOS 14.0 or later
-- Swift 5.0 or later
+- **iOS 13.0 or later**: Required to support SwiftUI and Combine frameworks, which are extensively used in this app.
+- **Swift 5.0 or later**: Ensures compatibility with SwiftUI’s declarative syntax and modern Swift language features.
+- **SwiftUI**: The app is fully built using SwiftUI, leveraging its declarative and composable UI architecture.
 
 ## Installation
 
