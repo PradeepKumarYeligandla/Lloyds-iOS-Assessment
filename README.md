@@ -1,5 +1,5 @@
 # Lloyds-iOS-Assessment
-# Product Listing App
+# ProductCatalog App
 
 This iOS app displays a list of products fetched from a network API. The app handles multiple states such as loading, success, error, and idle, and it includes several views to display product details, price, and ratings. The app also includes features like lazy loading of products and image caching.
 
@@ -40,7 +40,7 @@ To install and run the project:
     ```
 2. Open the project in Xcode:
     ```bash
-    open ProductListingApp.xcodeproj
+    open ProductCatalog.xcodeproj
     ```
 3. Build and run the app on your simulator or device.
 
