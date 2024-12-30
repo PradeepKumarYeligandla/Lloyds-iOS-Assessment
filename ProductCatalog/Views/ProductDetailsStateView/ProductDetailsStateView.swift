@@ -1,5 +1,5 @@
 //
-//  ProductDetailsView.swift
+//  ProductDetailsStateView.swift
 //  ProductCatalog
 //
 //  Created by Pradeep Kumar on 26/12/24.
@@ -27,7 +27,7 @@ import Network
 
 // MARK: - Main View for Displaying Product Details
 
-struct ProductDetailsView: View {
+struct ProductDetailsStateView: View {
     
     // ViewModel that manages the state and fetches product data
     @StateObject private var viewModel = ProductListViewModel()
@@ -68,5 +68,5 @@ struct ProductDetailsView: View {
     let mockData: ProductMockDataProtocol = ProductMockData()
     mockViewModel.productList = mockData.generateMockProducts() // Mock data for testing
     mockViewModel.viewState = .success // Simulate a successful data fetch state
-    return ProductDetailsView().environmentObject(mockViewModel)
+    return ProductDetailsStateView().environmentObject(mockViewModel)
 }

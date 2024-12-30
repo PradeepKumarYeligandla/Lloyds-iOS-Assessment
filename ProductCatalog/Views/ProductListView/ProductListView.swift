@@ -56,6 +56,6 @@ struct ProductListView: View {
     let mockData: ProductMockDataProtocol = ProductMockData()
     mockViewModel.productList = mockData.generateMockProducts()
     mockViewModel.viewState = .success
-    return ProductDetailsView()
+    return ProductDetailsStateView()
         .environmentObject(mockViewModel) // Inject mock ViewModel into the environment
 }

@@ -32,6 +32,7 @@ struct AsyncImageView: View {
     
     // ViewModel to handle the image loading logic.
     @StateObject private var viewModel = AsyncImageViewModel()
+    @State private var isImageLoaded = false
     
     var body: some View {
         ZStack {
@@ -42,12 +43,24 @@ struct AsyncImageView: View {
                     .aspectRatio(contentMode: contentMode)
                     .cornerRadius(cornerRadius)
                     .transition(.opacity.animation(.easeInOut))
+                    .onAppear {
+                        withAnimation {
+                            isImageLoaded = true
+                        }
+                    }
             } else if viewModel.isLoading {
                 // If the image is still loading, show the placeholder.
                 placeholder
                     .resizable()
                     .aspectRatio(contentMode: contentMode)
                     .cornerRadius(cornerRadius)
+                    .overlay(
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .padding()
+                            .opacity(isImageLoaded ? 0 : 1) // Only show the spinner when loading
+                    )
+                    .transition(.opacity.animation(.easeInOut))
             }
         }
         .onAppear {
