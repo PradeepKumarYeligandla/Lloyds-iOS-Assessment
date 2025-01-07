@@ -26,16 +26,16 @@ class MockNetworkManager: NetworkManagerProtocol {
     
     /// Simulates fetching product details from an API.
     /// - Returns: A publisher that emits an array of `Product` objects or an error.
-    func fetchProductDetails() -> AnyPublisher<[Product], Error> {
+    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error> {
         if shouldFail {
             return Fail(error: error ?? URLError(.unknown)).eraseToAnyPublisher()
         }
         // Simulate successful response with mock data
         guard let mockData = mockData else {
-            return Just([Product]()).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return Just([ProductModelItems]()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         do {
-            let products = try JSONDecoder().decode([Product].self, from: mockData)
+            let products = try JSONDecoder().decode([ProductModelItems].self, from: mockData)
             return Just(products)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()

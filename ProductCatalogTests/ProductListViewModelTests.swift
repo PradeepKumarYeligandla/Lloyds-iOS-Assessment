@@ -83,8 +83,8 @@ final class ProductListViewModelTests: XCTestCase {
     func testFetchCartProductDetailsSuccess() {
         // Step 1: Setup mock response with products
         let products = [
-            Product.mockProduct(id: 1), // Mock Product 1
-            Product.mockProduct(id: 2)  // Mock Product 2
+            ProductModelItems.mockProduct(id: 1), // Mock Product 1
+            ProductModelItems.mockProduct(id: 2)  // Mock Product 2
         ]
         
         // Encode the products into mockData
@@ -136,7 +136,7 @@ final class ProductListViewModelTests: XCTestCase {
     
     func testFetchCartProductDetailsWithEmptyList() {
         // Simulate an empty product list with Products model
-        let emptyProductList: [Product] = []
+        let emptyProductList: [ProductModelItems] = []
         mockNetworkManager.mockData = try? JSONEncoder().encode(emptyProductList)
         mockNetworkManager.shouldFail = false
         
@@ -183,7 +183,7 @@ final class ProductListViewModelTests: XCTestCase {
     
     func testNoProductsAvailableWithRetry() {
         // Simulate no products
-        let emptyProductList: [Product] = []
+        let emptyProductList: [ProductModelItems] = []
         mockNetworkManager.mockData = try? JSONEncoder().encode(emptyProductList)
         mockNetworkManager.shouldFail = false
         

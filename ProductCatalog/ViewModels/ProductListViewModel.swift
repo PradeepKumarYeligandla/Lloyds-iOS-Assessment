@@ -28,7 +28,7 @@ class ProductListViewModel: ObservableObject {
     
     // MARK: - Published Properties
     @Published var viewState: CustomViewState = .idle
-    @Published var productList: [Product] = []
+    @Published var productList: [ProductModelItems] = []
     @Published var isInternetAvailable = true
     
     // MARK: - Private Properties

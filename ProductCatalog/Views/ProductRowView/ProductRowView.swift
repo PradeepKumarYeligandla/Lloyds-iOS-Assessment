@@ -23,7 +23,7 @@ struct ProductRowView: View {
     
     @State private var scale: CGFloat = 0.9
     // Product data passed to the view
-    let product: Product
+    let product: ProductModelItems
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {

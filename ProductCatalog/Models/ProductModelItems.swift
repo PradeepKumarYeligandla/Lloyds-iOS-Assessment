@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Product Model
-struct Product: Identifiable, Codable {
+struct ProductModelItems: Identifiable, Codable {
     let id: Int
     let title: String
     let price: Double
@@ -23,16 +23,16 @@ struct Product: Identifiable, Codable {
     }
 }
 // Mock Product Data
-extension Product {
-    static func mockProduct(id: Int = 1, image: String = "https://via.placeholder.com/200") -> Product {
-        return Product(
+extension ProductModelItems {
+    static func mockProduct(id: Int = 1, image: String = "https://via.placeholder.com/200") -> ProductModelItems {
+        return ProductModelItems(
             id: id,
             title: "Sample Product",
             price: 19.99,
             description: "This is a sample product description.",
             category: "Sample Category",
             image: image,
-            rating: Product.Rating(rate: 4.5, count: 100)
+            rating: ProductModelItems.Rating(rate: 4.5, count: 100)
         )
     }
 }

@@ -21,7 +21,7 @@
 		6ACF9B4B2D1DBD0D003EBBAC /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B4A2D1DBD0D003EBBAC /* MockNetworkManager.swift */; };
 		6ACF9B4D2D1DBD1E003EBBAC /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B4C2D1DBD1E003EBBAC /* MockNetworkSession.swift */; };
 		6ACF9B512D1DBDEF003EBBAC /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B502D1DBDEF003EBBAC /* ProductListViewModel.swift */; };
-		6ACF9B532D1DBE0D003EBBAC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B522D1DBE0D003EBBAC /* Product.swift */; };
+		6ACF9B532D1DBE0D003EBBAC /* ProductModelItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B522D1DBE0D003EBBAC /* ProductModelItems.swift */; };
 		6ACF9B572D1DC534003EBBAC /* ProductRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B562D1DC534003EBBAC /* ProductRowView.swift */; };
 		6ACF9B592D1DC54D003EBBAC /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B582D1DC54D003EBBAC /* ProductListView.swift */; };
 		6ACF9B5B2D1DC57F003EBBAC /* ProductDetailsStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF9B5A2D1DC57F003EBBAC /* ProductDetailsStateView.swift */; };
@@ -69,7 +69,7 @@
 		6ACF9B4A2D1DBD0D003EBBAC /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		6ACF9B4C2D1DBD1E003EBBAC /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		6ACF9B502D1DBDEF003EBBAC /* ProductListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
-		6ACF9B522D1DBE0D003EBBAC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		6ACF9B522D1DBE0D003EBBAC /* ProductModelItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModelItems.swift; sourceTree = "<group>"; };
 		6ACF9B562D1DC534003EBBAC /* ProductRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRowView.swift; sourceTree = "<group>"; };
 		6ACF9B582D1DC54D003EBBAC /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		6ACF9B5A2D1DC57F003EBBAC /* ProductDetailsStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsStateView.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		6ACF9B402D1DBC81003EBBAC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6ACF9B522D1DBE0D003EBBAC /* Product.swift */,
+				6ACF9B522D1DBE0D003EBBAC /* ProductModelItems.swift */,
 				6ACF9B722D1F8471003EBBAC /* ProductMockData.swift */,
 			);
 			path = Models;
@@ -409,7 +409,7 @@
 			files = (
 				6ACF9B692D1EA1D2003EBBAC /* CustomLoadingView.swift in Sources */,
 				6ACF9B4D2D1DBD1E003EBBAC /* MockNetworkSession.swift in Sources */,
-				6ACF9B532D1DBE0D003EBBAC /* Product.swift in Sources */,
+				6ACF9B532D1DBE0D003EBBAC /* ProductModelItems.swift in Sources */,
 				6ACF9B612D1DC604003EBBAC /* ErrorMessageView.swift in Sources */,
 				6ACF9B5B2D1DC57F003EBBAC /* ProductDetailsStateView.swift in Sources */,
 				6ACF9B5F2D1DC5F3003EBBAC /* RetryButtonView.swift in Sources */,

@@ -43,8 +43,8 @@ final class NetworkManagerTests: XCTestCase {
     func testFetchProducts_Success() {
         // Arrange: Set up mock products and encoded data
         let mockProducts = [
-            Product(id: 1, title: "Title 1", price: 10.0, description: "Description 1", category: "Category 1", image: "Image 1", rating: Product.Rating(rate: 4.5, count: 100)),
-            Product(id: 2, title: "Title 2", price: 20.0, description: "Description 2", category: "Category 2", image: "Image 2", rating: Product.Rating(rate: 4.0, count: 150))
+            ProductModelItems(id: 1, title: "Title 1", price: 10.0, description: "Description 1", category: "Category 1", image: "Image 1", rating: ProductModelItems.Rating(rate: 4.5, count: 100)),
+            ProductModelItems(id: 2, title: "Title 2", price: 20.0, description: "Description 2", category: "Category 2", image: "Image 2", rating: ProductModelItems.Rating(rate: 4.0, count: 150))
         ]
         
         guard let mockData = try? JSONEncoder().encode(mockProducts) else {
@@ -57,7 +57,7 @@ final class NetworkManagerTests: XCTestCase {
         
         // Act: Trigger fetch and observe the result
         let expectation = XCTestExpectation(description: "Fetch products")
-        var receivedProducts: [Product]?
+        var receivedProducts: [ProductModelItems]?
         
         networkManager.fetchProductDetails()
             .sink(receiveCompletion: { completion in

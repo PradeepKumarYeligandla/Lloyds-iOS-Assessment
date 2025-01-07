@@ -32,7 +32,7 @@ protocol NetworkManagerProtocol {
         decoder: JSONDecoder
     ) -> AnyPublisher<T, Error>
     
-    func fetchProductDetails() -> AnyPublisher<[Product], Error>
+    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error>
     //func downloadImage(from urlString: String) -> AnyPublisher<UIImage, Error>
     func downloadImage(from urlString: String) async throws -> UIImage
 }
@@ -88,7 +88,7 @@ class NetworkManager: NetworkManagerProtocol {
     /// - Returns: A publisher emitting an array of `Product` objects or an error.
     ///
     
-    func fetchProductDetails() -> AnyPublisher<[Product], Error> {
+    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error> {
         guard let url = URL(string: API.baseURL) else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
