@@ -23,9 +23,8 @@
 //
 
 import SwiftUI
-import Network
 
-// MARK: - Main View for Displaying Product Details
+// MARK: - ProductDetailsStateView for Displaying Product Details
 
 struct ProductDetailsStateView: View {
     
@@ -41,7 +40,7 @@ struct ProductDetailsStateView: View {
             case .success:
                 ProductListView(viewModel: viewModel)
             case .error:
-                ErrorMessageView(message: AppError.dataLoadFailure.localizedDescription, viewModel: viewModel)
+                ErrorMessageView(viewModel: viewModel, message: AppError.dataLoadFailure.localizedDescription)
             case .idle:
                 Text("Idle State")
             }
@@ -66,7 +65,7 @@ struct ProductDetailsStateView: View {
     // Set up a mock ViewModel with the mock product data
     let mockViewModel = ProductListViewModel()
     let mockData: ProductMockDataProtocol = ProductMockData()
-    mockViewModel.productList = mockData.generateMockProducts() // Mock data for testing
+    mockViewModel.productList = mockData.generateMockProducts(from: MockDataKeys.mockProductsFileName) // Mock data for testing
     mockViewModel.viewState = .success // Simulate a successful data fetch state
     return ProductDetailsStateView().environmentObject(mockViewModel)
 }

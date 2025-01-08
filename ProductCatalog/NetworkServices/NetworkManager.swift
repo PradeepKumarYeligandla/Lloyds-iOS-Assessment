@@ -24,7 +24,6 @@ import UIKit
 
 /// Defines the interface for network operations, including fetching data and images.
 protocol NetworkManagerProtocol {
-    /// Fetches and decodes data into a specified `Decodable` type.
     func executeRequest<T: Decodable>(
         from url: URL,
         method:  API.HTTPMethod,
@@ -32,31 +31,29 @@ protocol NetworkManagerProtocol {
         decoder: JSONDecoder
     ) -> AnyPublisher<T, Error>
     
-    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error>
-    //func downloadImage(from urlString: String) -> AnyPublisher<UIImage, Error>
+    func fetchProductDetails() -> AnyPublisher<[ProductModel], Error>
     func downloadImage(from urlString: String) async throws -> UIImage
 }
 
 // MARK: - NetworkManager
-
 /// Handles network operations using a customizable session for fetching data and images.
+///
 class NetworkManager: NetworkManagerProtocol {
     
     // MARK: - Properties
-    
     /// The session used for network operations, supporting dependency injection.
+    ///
     private let session: NetworkSessionProtocol
     
     // MARK: - Initializer
-    
     /// Initializes `NetworkManager` with a session (default: `URLSession.shared`).
     /// - Parameter session: A session conforming to `NetworkSessionProtocol`.
+    ///
     init(session: NetworkSessionProtocol = URLSession.shared) {
         self.session = session
     }
     
     // MARK: - Generic Data Fetching
-    
     /// Fetches data from a URL and decodes it into a `Decodable` type.
     ///
     /// - Parameters:
@@ -83,12 +80,10 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // MARK: - Fetch Products
-    
     /// Fetches a list of products from the API.
     /// - Returns: A publisher emitting an array of `Product` objects or an error.
     ///
-    
-    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error> {
+    func fetchProductDetails() -> AnyPublisher<[ProductModel], Error> {
         guard let url = URL(string: API.baseURL) else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
@@ -97,11 +92,11 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // MARK: - Download Image
-
     /// Asynchronously downloads an image from the given URL string.
     /// - Parameter urlString: The URL string of the image.
     /// - Returns: A `UIImage` object.
     /// - Throws: `URLError(.badURL)` for invalid URL or `URLError(.cannotDecodeContentData)` if the data can't be decoded.
+    /// 
     func downloadImage(from urlString: String) async throws -> UIImage {
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)

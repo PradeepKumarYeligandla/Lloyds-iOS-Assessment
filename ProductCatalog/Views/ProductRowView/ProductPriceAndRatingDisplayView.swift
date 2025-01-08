@@ -1,5 +1,5 @@
 //
-//  RatingView.swift
+//  ProductPriceAndRatingDisplayView.swift
 //  ProductCatalog
 //
 //  Created by Pradeep Kumar on 29/12/24.

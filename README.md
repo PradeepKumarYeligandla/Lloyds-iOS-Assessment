@@ -22,7 +22,7 @@ The app is structured using the following components:
   - `ProductRowView`: Displays each individual product in the list with its details.
   - `ProductPriceAndRatingDisplayView`: Displays the price and rating of the product.
   - `AsyncImageView`: Handles asynchronous image loading and caching.
-- **Model**: The app uses a `ProductModelItesm` model to represent each product, which contains essential details such as `id`, `title`, `price`, `description`, `category`, and `rating`. Each product also includes an embedded `Rating` model to hold rating information.
+- **Model**: The app uses a `ProductModel` model to represent each product, which contains essential details such as `id`, `title`, `price`, `description`, `category`, and `rating`. Each product also includes an embedded `Rating` model to hold rating information.
 - **Networking**: The `NetworkManager` is responsible for handling network requests to fetch product data and images.
 
 ## Requirements

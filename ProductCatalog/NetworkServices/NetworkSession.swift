@@ -17,7 +17,6 @@ import Foundation
 import Combine
 
 // MARK: - NetworkSession Protocol
-
 /// Defines requirements for performing network operations.
 /// Enables `NetworkManager` to work with any network session implementation.
 ///
@@ -26,7 +25,6 @@ protocol NetworkSessionProtocol {
 }
 
 // MARK: - URLSession Extension
-
 /// Conforms `URLSession` to `NetworkSessionProtocol`, allowing its use in `NetworkManager`.
 ///
 extension URLSession: NetworkSessionProtocol {
@@ -42,8 +40,8 @@ extension URLSession: NetworkSessionProtocol {
 }
 
 // MARK: - URLRequest Extension
-
 /// Adds headers to a URLRequest.
+/// 
 extension URLRequest {
     mutating func addHeaders(_ headers: [String: String]?) {
         headers?.forEach { key, value in

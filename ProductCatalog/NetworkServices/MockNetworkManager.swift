@@ -26,16 +26,17 @@ class MockNetworkManager: NetworkManagerProtocol {
     
     /// Simulates fetching product details from an API.
     /// - Returns: A publisher that emits an array of `Product` objects or an error.
-    func fetchProductDetails() -> AnyPublisher<[ProductModelItems], Error> {
+    /// 
+    func fetchProductDetails() -> AnyPublisher<[ProductModel], Error> {
         if shouldFail {
             return Fail(error: error ?? URLError(.unknown)).eraseToAnyPublisher()
         }
         // Simulate successful response with mock data
         guard let mockData = mockData else {
-            return Just([ProductModelItems]()).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return Just([ProductModel]()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         do {
-            let products = try JSONDecoder().decode([ProductModelItems].self, from: mockData)
+            let products = try JSONDecoder().decode([ProductModel].self, from: mockData)
             return Just(products)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
@@ -44,10 +45,12 @@ class MockNetworkManager: NetworkManagerProtocol {
         }
     }
     
-    // MARK: - Generic Request (Not Implemented)
+    // MARK: - Generic Request (Not Implemented for Testing)
     
     /// Simulates a generic network request.
-    /// - Note: Not implemented for testing purposes.
+    /// - Note: This method is not implemented for testing purposes. It is left here as a placeholder.
+    /// - Returns: `fatalError()` is called to prevent using this method in tests.
+    ///
     func executeRequest<T: Decodable>(
         from url: URL,
         method: API.HTTPMethod,
@@ -57,20 +60,21 @@ class MockNetworkManager: NetworkManagerProtocol {
         fatalError("Not implemented for this test")
     }
     
-    // MARK: - Async Image Download
+    // MARK: - Async Image Download (Mocking Image Download)
     
-    /// Asynchronously downloads an image from the given URL string.
+    /// Simulates an asynchronous image download.
     /// - Parameter urlString: The URL string of the image.
     /// - Returns: A `UIImage` object.
     /// - Throws: `URLError(.badURL)` for invalid URL or `URLError(.cannotDecodeContentData)` if the data can't be decoded.
+    ///
     func downloadImage(from urlString: String) async throws -> UIImage {
-            if shouldFail {
-                throw error ?? URLError(.badURL)
-            }
-            guard let data = mockData, let image = UIImage(data: data) else {
-                throw URLError(.cannotDecodeContentData)
-            }
-            return image
+        if shouldFail {
+            throw error ?? URLError(.badURL)
         }
+        guard let data = mockData, let image = UIImage(data: data) else {
+            throw URLError(.cannotDecodeContentData)
+        }
+        return image
+    }
 }
 

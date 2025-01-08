@@ -1,5 +1,5 @@
 //
-//  ProductRow.swift
+//  ProductRowView.swift
 //  ProductCatalog
 //
 //  Created by Pradeep Kumar on 26/12/24.
@@ -8,7 +8,7 @@
 //  A SwiftUI view that displays the details of a single product in the product catalog. It includes the product image, title, description, price, and rating. The image is either loaded from a cache or asynchronously fetched from a URL. The view features smooth scaling animation on appearance and visually distinct typography for a polished presentation.
 //
 //  Key Components:
-//  - **Product Image**: Loaded from cache or asynchronously using `PCAsyncImageView`.
+//  - **Product Image**: Loaded from cache or asynchronously using `AsyncImageView`.
 //  - **Typography**: Styled text for title and description with custom fonts and weights.
 //  - **Price & Rating**: Styled price with a gradient and rating with star icons.
 //
@@ -21,9 +21,9 @@ import SwiftUI
 // MARK: - Product Row View for Displaying Product Details
 struct ProductRowView: View {
     
+    // Properties
     @State private var scale: CGFloat = 0.9
-    // Product data passed to the view
-    let product: ProductModelItems
+    let model: ProductModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -32,7 +32,7 @@ struct ProductRowView: View {
             // Title and Description
             productDetails
             // Price and Rating display
-            ProductPriceAndRatingDisplayView(price: product.price, rating:product.rating.rate, ratingCount: product.rating.count)
+            ProductPriceAndRatingDisplayView(price: model.price, rating:model.rating.rate, ratingCount: model.rating.count)
         }
         .padding()
         .background(Color.white)
@@ -45,12 +45,12 @@ struct ProductRowView: View {
         
     }
     // MARK: - Computed Views
-    
     /// Displays the product image either from cache or through an async image loader.
+    ///
     private var productImageView: some View {
         return AnyView(
             AsyncImageView(
-                urlString: product.image,
+                urlString: model.image,
                 placeholder: Image(systemName: "photo"),
                 errorImage: Image(systemName: "exclamationmark.triangle"),
                 contentMode: .fill,
@@ -65,14 +65,14 @@ struct ProductRowView: View {
     /// Displays the title and description of the product.
     private var productDetails: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(product.title)
+            Text(model.title)
                 .font(.headline)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
                 .lineLimit(2)
                 .padding(.bottom, 2)
             
-            Text(product.description)
+            Text(model.description)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .lineLimit(3)
@@ -81,8 +81,8 @@ struct ProductRowView: View {
     }
     
     // MARK: - Animation
-    
     /// Applies a spring animation for the scale effect when the view appears.
+    ///
     private func applyScaleAnimation() {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0.2)) {
             scale = 1.0
@@ -92,16 +92,9 @@ struct ProductRowView: View {
 
 // MARK: - Preview for UI Testing and Debugging
 #Preview {
-    // Define a mock image cache
-    let imageCache = NSCache<NSString, UIImage>()
-    // Add a placeholder image to the cache
-    if let placeholderImage = UIImage(systemName: "photo") {
-        imageCache.setObject(placeholderImage, forKey: "https://via.placeholder.com/200" as NSString)
-    }
     // Generate mock products
     let mockData: ProductMockDataProtocol = ProductMockData()
     // Return the preview for the first product
-    return ProductRowView(product: mockData.generateMockProducts()[0])
-        .previewLayout(.sizeThatFits)
+    return ProductRowView(model: mockData.generateMockProducts(from: MockDataKeys.mockProductsFileName)[0])
         .padding()
 }

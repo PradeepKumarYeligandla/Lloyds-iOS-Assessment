@@ -21,15 +21,13 @@
 
 import Foundation
 import Combine
-import Network
 import UIKit
 
 class ProductListViewModel: ObservableObject {
     
     // MARK: - Published Properties
     @Published var viewState: CustomViewState = .idle
-    @Published var productList: [ProductModelItems] = []
-    @Published var isInternetAvailable = true
+    @Published var productList: [ProductModel] = []
     
     // MARK: - Private Properties
     private var cancellables = Set<AnyCancellable>()
@@ -39,12 +37,14 @@ class ProductListViewModel: ObservableObject {
     /// Initializes the view model with default or injected dependencies.
     /// - Parameters:
     ///   - networkManager: The network manager used to fetch products.
+    ///
     init(networkManager: NetworkManagerProtocol = NetworkManager()) {
         self.networkManager = networkManager
     }
     
     // MARK: - Public Methods
     /// Fetches product details from the network and preloads their images.
+    ///
     func fetchCartProductDetails() {
         guard viewState == .idle else { return }
         viewState = .loading
@@ -54,7 +54,6 @@ class ProductListViewModel: ObservableObject {
                 guard let self = self else { return }
                 switch completion {
                 case .failure(let error):
-                   /// self.viewState = .error(error.localizedDescription)
                     self.handleError(error)
                 case .finished:
                     break
@@ -68,6 +67,7 @@ class ProductListViewModel: ObservableObject {
     
     /// Handles errors that occur during the network request and updates the view state with an appropriate message.
     /// - Parameter error: The error that occurred during the network request.
+    ///
     private func handleError(_ error: Error) {
         // Handle different error cases, and update viewState accordingly
         if let urlError = error as? URLError {
@@ -83,7 +83,9 @@ class ProductListViewModel: ObservableObject {
             viewState = .error(AppError.unknown.localizedDescription)
         }
     }
+    
     /// Retries fetching product details by resetting the view state.
+    ///
     func retryFetch() {
         viewState = .idle
         fetchCartProductDetails() // Call the fetch method again

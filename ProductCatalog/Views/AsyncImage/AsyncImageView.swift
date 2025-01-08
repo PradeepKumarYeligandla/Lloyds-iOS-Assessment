@@ -74,7 +74,7 @@ struct AsyncImageView: View {
 
 #Preview {
     AsyncImageView(
-        urlString: "https://example.com/image.png",
+        urlString: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
         placeholder: Image(systemName: "photo"),
         errorImage: Image(systemName: "exclamationmark.triangle"),
         contentMode: .fill,

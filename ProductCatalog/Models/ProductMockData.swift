@@ -4,35 +4,42 @@
 //
 //  Created by Pradeep Kumar on 28/12/24.
 //
+//  Description: Implements `ProductMockData` to generate mock product data
+//  from a JSON file for testing and development purposes.
+//
+//  - Conforms to `ProductMockDataProtocol`.
+//  - Uses `MockDataLoader` to load JSON data.
+//  - Decodes data into an array of `ProductModel` using `JSONDecoder`.
+//  - Returns an empty array on error (e.g., file not found or decoding failure).
+//
+//  Usage:
+//      let mockData = ProductMockData()
+//      let products = mockData.generateMockProducts(from: "mock_products.json")
+//
+//
+//  Author:
+//  Pradeep Kumar
+//
 
 import Foundation
 
-// Function to generate mock products
+// Protocol for generating mock product data
 protocol ProductMockDataProtocol {
-    func generateMockProducts() -> [ProductModelItems]
+    func generateMockProducts(from fileName: String) -> [ProductModel]
 }
 
 struct ProductMockData: ProductMockDataProtocol {
-    func generateMockProducts() -> [ProductModelItems] {
-        return [
-            ProductModelItems(
-                id: 1,
-                title: "Mens Casual Premium Slim Fit T-Shirts",
-                price: 22.3,
-                description: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket...",
-                category: "men's clothing",
-                image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-                rating: ProductModelItems.Rating(rate: 4.1, count: 259)
-            ),
-            ProductModelItems(
-                id: 2,
-                title: "Solid Gold Chain",
-                price: 99.9,
-                description: "High-quality gold chain for men. Elegant and stylish design...",
-                category: "jewelry",
-                image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UX679_.jpg",
-                rating: ProductModelItems.Rating(rate: 4.8, count: 150)
-            )
-        ]
+    func generateMockProducts(from fileName: String) -> [ProductModel] {
+        guard let mockData = ProductUtility.loadMockData(from: fileName) else {
+            return []  // Return empty if data could not be loaded
+        }
+        do {
+            let products = try JSONDecoder().decode([ProductModel].self, from: mockData)
+            return products
+        } catch {
+            print(error.localizedDescription)
+            // Return an empty array in case of decoding failure
+            return []
+        }
     }
 }

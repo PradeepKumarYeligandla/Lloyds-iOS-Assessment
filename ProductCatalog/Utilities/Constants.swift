@@ -4,6 +4,10 @@
 //
 //  Created by Pradeep Kumar on 26/12/24.
 //
+//  Description:
+//  Defines constants and enums used across the application, including API configurations,
+//  error handling, UI strings, mock data keys, and view state management.
+//
 //  Author:
 //  Pradeep Kumar
 //
@@ -11,8 +15,7 @@
 import Foundation
 
 // MARK: - API Configuration
-//
-///// A struct to store all constants, including API configuration, default headers, and error messages.
+/// Stores API-related constants, including base URL, timeout interval, and default headers.
 
 struct API {
     static let baseURL = "https://fakestoreapi.com/products"
@@ -29,7 +32,8 @@ struct API {
 }
 
 // MARK: - Error Handling
-
+/// Defines common errors and their user-friendly descriptions.
+///
 enum AppError: Error {
     case noInternet
     case requestTimedOut
@@ -47,7 +51,8 @@ enum AppError: Error {
 }
 
 // MARK: - UI Constants
-
+/// Stores localized UI strings for consistent user messages.
+///
 struct UI {
     static let fetchingItems = NSLocalizedString("Fetching items...", comment: "UI message when data is loading")
     static let retryButton = NSLocalizedString("Retry", comment: "Retry button text")
@@ -56,8 +61,17 @@ struct UI {
     static let genericErrorTitle = NSLocalizedString("Error", comment: "Geric Error Message")
 }
 
-// MARK: - View State
+// MARK: - Mock Data Keys
+/// Stores file names for mock data used in testing and development.
+///
+struct MockDataKeys {
+    static let mockProductsFileName = "MockProducts"
+    static let mockEmptyProductsFileName = "MockEmptyProducts"
+}
 
+// MARK: - View State
+/// Represents the state of a view, including idle, loading, success, or error.
+///
 enum CustomViewState: Equatable {
     case idle
     case loading

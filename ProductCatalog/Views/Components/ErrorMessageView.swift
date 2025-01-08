@@ -20,8 +20,10 @@
 import SwiftUI
 
 struct ErrorMessageView: View {
-    let message: String
+    
+    // Properties
     @ObservedObject var viewModel: ProductListViewModel
+    let message: String
     
     var body: some View {
         VStack(spacing: 10) {
@@ -56,7 +58,7 @@ struct ErrorMessageView: View {
 
 #Preview {
     let mockViewModel = ProductListViewModel()
-    return ErrorMessageView(message: AppError.dataLoadFailure.localizedDescription, viewModel: mockViewModel)
+    ErrorMessageView(viewModel: mockViewModel, message: AppError.dataLoadFailure.localizedDescription)
 }
 
 

@@ -14,15 +14,15 @@
 //  - Caches images for reuse to reduce unnecessary network calls.
 //  - Cancels any previous download task if a new one starts.
 //
-//
+//  Author:
+//  Pradeep Kumar
 //
 
 import Foundation
 import UIKit
 import Combine
 
-// MARK: - ViewModel
-
+// MARK: - AsyncImage - ViewModel
 @MainActor
 class AsyncImageViewModel: ObservableObject {
     @Published var image: UIImage? = nil
@@ -52,7 +52,7 @@ class AsyncImageViewModel: ObservableObject {
             self.image = downloadedImage
         } catch {
             self.image = nil
-            print("Error loading image: \(error)")
+            print(error)
         }
     }
 }

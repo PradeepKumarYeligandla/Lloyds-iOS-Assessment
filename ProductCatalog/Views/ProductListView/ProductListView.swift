@@ -30,12 +30,10 @@ struct ProductListView: View {
             List {
                 LazyVStack {
                     ForEach(viewModel.productList) { product in
-                        ProductRowView(product: product)
+                        ProductRowView(model: product)
                             .onAppear {
-                                // Fetch more products when the last product appears
-                                if product.id == viewModel.productList.last?.id ?? 0 {
-                                    viewModel.fetchCartProductDetails()
-                                }
+                                // Move the logic to a separate function for clarity and better type inference
+                                handleOnAppear(for: product)
                             }
                     }
                 }
@@ -47,6 +45,15 @@ struct ProductListView: View {
             .padding(.top, 1)
         }
     }
+    
+    private func handleOnAppear(for product: ProductModel) {
+        // Access the last product's id explicitly to avoid expensive computation in the loop
+        guard let lastProduct = viewModel.productList.last else { return }
+        // Fetch more products when the last product appears
+        if product.id == lastProduct.id {
+            viewModel.fetchCartProductDetails()
+        }
+    }
 }
 
 // MARK: - Preview for UI Testing and Debugging
@@ -54,7 +61,7 @@ struct ProductListView: View {
     // Create a mock ViewModel for simulating the product list
     let mockViewModel = ProductListViewModel()
     let mockData: ProductMockDataProtocol = ProductMockData()
-    mockViewModel.productList = mockData.generateMockProducts()
+    mockViewModel.productList = mockData.generateMockProducts(from: MockDataKeys.mockProductsFileName)
     mockViewModel.viewState = .success
     return ProductDetailsStateView()
         .environmentObject(mockViewModel) // Inject mock ViewModel into the environment

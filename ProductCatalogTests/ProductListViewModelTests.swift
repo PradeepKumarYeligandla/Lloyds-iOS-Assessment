@@ -1,8 +1,11 @@
 //
-//  ProductCatalogTests.swift
+//  ProductListViewModelTests.swift
 //  ProductCatalogTests
 //
 //  Created by Pradeep Kumar on 26/12/24.
+//
+//  Author:
+//  Pradeep Kumar
 //
 
 import XCTest
@@ -29,31 +32,12 @@ final class ProductListViewModelTests: XCTestCase {
         cancellables = nil
     }
     
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-    
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
     // 1. Test Initial State
     func testInitialState() {
         // Verify that the view state is set to .idle initially
         XCTAssertEqual(viewModel.viewState, .idle, "The viewState should be .idle initially.")
-        
         // Verify that the product list is empty initially
         XCTAssertTrue(viewModel.productList.isEmpty, "The productList should be empty initially.")
-        
-        // Verify that the internet availability flag is true initially
-        XCTAssertTrue(viewModel.isInternetAvailable, "The isInternetAvailable flag should be true initially.")
     }
     
     func testFetchCartProductDetailsWithTimeoutError() {
@@ -81,14 +65,10 @@ final class ProductListViewModelTests: XCTestCase {
     
     // 2. Test Successful Fetch of Products
     func testFetchCartProductDetailsSuccess() {
-        // Step 1: Setup mock response with products
-        let products = [
-            ProductModelItems.mockProduct(id: 1), // Mock Product 1
-            ProductModelItems.mockProduct(id: 2)  // Mock Product 2
-        ]
+        let mockData: ProductMockDataProtocol = ProductMockData()
         
         // Encode the products into mockData
-        mockNetworkManager.mockData = try? JSONEncoder().encode(products)
+        mockNetworkManager.mockData = try? JSONEncoder().encode(mockData.generateMockProducts(from: MockDataKeys.mockProductsFileName))
         mockNetworkManager.shouldFail = false  // Ensure no failure
         
         // Create an expectation to wait for the async operation
@@ -100,7 +80,8 @@ final class ProductListViewModelTests: XCTestCase {
                 if case .success = state {
                     XCTAssertEqual(state, .success, "View state should be .success after fetching products.")
                     XCTAssertEqual(self.viewModel.productList.count, 2, "The product list should contain 2 products.")
-                    XCTAssertEqual(self.viewModel.productList.first?.title, "Sample Product", "The title of the first product should be 'Sample Product 1'.")
+                    let productTitles = self.viewModel.productList.map { $0.title }
+                    XCTAssertTrue(productTitles.contains("New Product Title"), "The product list should contain 'New Product Title'.")
                     // Fulfill the expectation to indicate that the async operation is complete
                     expectation.fulfill()
                 }
@@ -135,16 +116,15 @@ final class ProductListViewModelTests: XCTestCase {
     }
     
     func testFetchCartProductDetailsWithEmptyList() {
-        // Simulate an empty product list with Products model
-        let emptyProductList: [ProductModelItems] = []
-        mockNetworkManager.mockData = try? JSONEncoder().encode(emptyProductList)
+        let mockData: ProductMockDataProtocol = ProductMockData()
+        // Load empty product list from JSON file
+        mockNetworkManager.mockData = try? JSONEncoder().encode(mockData.generateMockProducts(from: MockDataKeys.mockEmptyProductsFileName))
         mockNetworkManager.shouldFail = false
         
         let expectation = self.expectation(description: "Fetch empty product list")
         viewModel.fetchCartProductDetails()
         
         viewModel.$viewState
-            .dropFirst()
             .sink { state in
                 if case .success = state {
                     XCTAssertEqual(self.viewModel.productList.count, 0, "The product list should be empty.")
@@ -182,9 +162,9 @@ final class ProductListViewModelTests: XCTestCase {
     }
     
     func testNoProductsAvailableWithRetry() {
-        // Simulate no products
-        let emptyProductList: [ProductModelItems] = []
-        mockNetworkManager.mockData = try? JSONEncoder().encode(emptyProductList)
+        let mockData: ProductMockDataProtocol = ProductMockData()
+        // Load empty product list from JSON file
+        mockNetworkManager.mockData = try? JSONEncoder().encode(mockData.generateMockProducts(from: MockDataKeys.mockEmptyProductsFileName))
         mockNetworkManager.shouldFail = false
         
         let expectation = self.expectation(description: "No products with retry")
